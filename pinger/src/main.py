@@ -39,11 +39,14 @@ def ping_and_save(host):
     fields = {}
 
     try:
+        print(f"Pinging host {host}...")
         r = pythonping.ping(host, timeout=os.getenv("PING_TIMEOUT", "30"))
+        print("Done.")
     except Exception as e:
         print(e)
         r = None
 
+    print("Writing data to db...")
     client.write_points([
         {
             "measurement": "network_ping",
@@ -67,6 +70,5 @@ ping_hosts = os.getenv("PING_HOSTS", "8.8.8.8").split(",")
 
 while True:
     for host in ping_hosts:
-        print(f"Pringing {host}...")
         ping_and_save(host)
     time.sleep(float(os.getenv("PING_TIME", "0.5")))
