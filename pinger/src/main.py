@@ -40,7 +40,7 @@ def ping_and_save(host):
 
     try:
         print(f"Pinging host {host}...")
-        r = pythonping.ping(host, timeout=os.getenv("PING_TIMEOUT", "30"))
+        r = pythonping.ping(host, timeout=int(os.getenv("PING_TIMEOUT", "30")))
         print("Done.")
     except Exception as e:
         print(e)
