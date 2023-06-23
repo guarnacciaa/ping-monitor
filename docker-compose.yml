@@ -24,6 +24,7 @@ services:
       - GF_SECURITY_ADMIN_PASSWORD=${GRAFANA_PASSWORD}
   pinger:
     build: pinger/
+    restart: always
     depends_on:
       - influxdb
     environment:
