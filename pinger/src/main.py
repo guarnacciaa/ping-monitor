@@ -35,7 +35,7 @@ def create_fields(r: pythonping.executor.ResponseList):
 def ping_and_save(host):
     fields = {}
     try:
-        r = pythonping.ping(host)
+        r = pythonping.ping(host, timeout=os.getenv("PING_TIMEOUT", "30"))
     except Exception as e:
         r = None
     client.write_points([
@@ -55,7 +55,7 @@ while True:
         break
     except Exception as e:
         print(e)
-        time.sleep(5)
+        time.sleep(float(os.getenv("PING_TIME", "0.5")))
 
 ping_hosts = os.getenv("PING_HOSTS", "8.8.8.8").split(",")
 while True:
