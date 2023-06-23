@@ -17,11 +17,14 @@ def create_client():
     return client
 
 def create_fields(r: pythonping.executor.ResponseList):
+
     if r is None:
+        print(f"r is None")
         return {
             "active": 0
         }
     active = 0
+
     if r.success(option=pythonping.executor.SuccessOn.Most):
         active = 1
     return {
@@ -34,10 +37,13 @@ def create_fields(r: pythonping.executor.ResponseList):
 
 def ping_and_save(host):
     fields = {}
+
     try:
         r = pythonping.ping(host, timeout=os.getenv("PING_TIMEOUT", "30"))
     except Exception as e:
+        print(e)
         r = None
+
     client.write_points([
         {
             "measurement": "network_ping",
@@ -58,7 +64,9 @@ while True:
         time.sleep(float(os.getenv("PING_TIME", "0.5")))
 
 ping_hosts = os.getenv("PING_HOSTS", "8.8.8.8").split(",")
+
 while True:
     for host in ping_hosts:
+        print(f"Pringing {host}...")
         ping_and_save(host)
     time.sleep(float(os.getenv("PING_TIME", "0.5")))
