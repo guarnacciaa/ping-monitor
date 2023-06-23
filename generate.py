@@ -14,6 +14,7 @@ lines = [
     f"GRAFANA_USERNAME=admin\n",
     f"GRAFANA_PASSWORD={generate_password()}\n",
     f"PING_HOSTS={hosts}\n"
+    f"PING_TIME=0.5\n"
 ]
 
 print(f"Configured to ping {hosts}")
