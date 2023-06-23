@@ -1,6 +1,7 @@
 version: '2'
 services:
   influxdb:
+    container_name: pinger-influxdb
     image: influxdb:1.8
     volumes:
       - influxdb-storage:/var/lib/influxdb
@@ -9,9 +10,10 @@ services:
       - INFLUXDB_ADMIN_USER=${INFLUXDB_USERNAME}
       - INFLUXDB_ADMIN_PASSWORD=${INFLUXDB_PASSWORD}
   grafana:
+    container_name: pinger-grafana
     build: grafana/
     ports:
-      - '3000:3000'
+      - '3030:3000'
     volumes:
       - grafana-storage:/var/lib/grafana
     depends_on:
@@ -23,6 +25,7 @@ services:
       - GF_SECURITY_ADMIN_USER=${GRAFANA_USERNAME}
       - GF_SECURITY_ADMIN_PASSWORD=${GRAFANA_PASSWORD}
   pinger:
+    container_name: pinger
     build: pinger/
     restart: always
     depends_on:
