@@ -61,4 +61,4 @@ ping_hosts = os.getenv("PING_HOSTS", "8.8.8.8").split(",")
 while True:
     for host in ping_hosts:
         ping_and_save(host)
-    time.sleep(os.getenv("PING_TIME", "0.5"))
+    time.sleep(float(os.getenv("PING_TIME", "0.5")))
