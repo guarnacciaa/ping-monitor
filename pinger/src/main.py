@@ -11,7 +11,7 @@ def create_client():
     influx_user = os.getenv("INFLUXDB_USERNAME", "admin")
     influx_password = os.getenv("INFLUXDB_PASSWORD", "admin")
     influx_database = os.getenv("INFLUXDB_DATABASE", "rpi")
-    
+
     client = InfluxDBClient(influx_host, influx_port, influx_user, influx_password, influx_database)
     client.create_database(influx_database)
     return client
@@ -61,4 +61,4 @@ ping_hosts = os.getenv("PING_HOSTS", "8.8.8.8").split(",")
 while True:
     for host in ping_hosts:
         ping_and_save(host)
-    time.sleep(5)
+    time.sleep(0.5)
